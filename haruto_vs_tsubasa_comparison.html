@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>はると × ツバサ 比較分析｜なぜ片方は伸び続け、片方は失速したか 2026.05.11</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Noto+Sans+JP:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f7f6f3;
+  --bg-card: #ffffff;
+  --bg-soft: #efede7;
+  --ink: #18191a;
+  --ink-2: #3d3d3d;
+  --ink-3: #6b6b6b;
+  --ink-4: #9a9a9a;
+  --line: #e0ddd5;
+  --line-2: #d0ccc0;
+  --navy: #1a3a5c;
+  --accent: #b8482c;
+  --green: #2d6a3f;
+  --warn: #c97f0c;
+  --haruto: #1a5c4a;
+  --haruto-bg: #e6efeb;
+  --tsubasa: #8a3520;
+  --tsubasa-bg: #f9e9e0;
+  --bg-bad: #fbeae3;
+  --bg-good: #e8efe5;
+  --bg-warn: #fcf3df;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 400;
+  line-height: 1.75;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+.mincho { font-family: 'Shippori Mincho', serif; }
+.mono { font-family: 'JetBrains Mono', monospace; }
+.wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* HEADER */
+header.doc-head {
+  background: var(--ink);
+  color: white;
+  padding: 28px 0;
+  border-bottom: 4px solid var(--accent);
+}
+.doc-head .wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.doc-head h1 {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+}
+.doc-head h1 .sub {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.65);
+  margin-top: 4px;
+  font-family: 'Noto Sans JP', sans-serif;
+  letter-spacing: 0;
+}
+.doc-meta {
+  display: flex;
+  gap: 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+}
+.doc-meta strong { color: white; font-weight: 500; }
+
+/* Section */
+section {
+  padding: 48px 0;
+  border-bottom: 1px solid var(--line);
+}
+.sec-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line-2);
+}
+.sec-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  font-weight: 700;
+}
+.sec-num strong { color: var(--ink); }
+h2 {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: 0.02em;
+  flex: 1;
+  padding-left: 24px;
+}
+.sec-actions {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-4);
+}
+
+/* Exec */
+.exec {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  padding: 32px;
+  margin-bottom: 32px;
+}
+.exec h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.exec .lead {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.75;
+  letter-spacing: 0.01em;
+  margin-bottom: 20px;
+}
+.exec ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 32px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.exec li {
+  font-size: 13px;
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.7;
+}
+.exec li::before {
+  content: '▶';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 10px;
+  top: 5px;
+}
+
+/* KPI */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.kpi {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  padding: 20px;
+  border-top: 3px solid var(--ink-4);
+}
+.kpi.haruto { border-top-color: var(--haruto); }
+.kpi.tsubasa { border-top-color: var(--tsubasa); }
+.kpi.diff { border-top-color: var(--accent); }
+.kpi .label {
+  font-size: 11px;
+  color: var(--ink-3);
+  margin-bottom: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.05em;
+}
+.kpi .value {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+.kpi.haruto .value { color: var(--haruto); }
+.kpi.tsubasa .value { color: var(--tsubasa); }
+.kpi.diff .value { color: var(--accent); }
+.kpi .delta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-3);
+}
+
+/* Comparison row */
+.dual {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+.dual-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  padding: 24px;
+}
+.dual-card.haruto {
+  border-top: 3px solid var(--haruto);
+  background: linear-gradient(180deg, var(--haruto-bg) 0%, var(--bg-card) 60%);
+}
+.dual-card.tsubasa {
+  border-top: 3px solid var(--tsubasa);
+  background: linear-gradient(180deg, var(--tsubasa-bg) 0%, var(--bg-card) 60%);
+}
+.dual-card .who {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+.dual-card.haruto .who { color: var(--haruto); }
+.dual-card.tsubasa .who { color: var(--tsubasa); }
+.dual-card h3 {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+.dual-card .body {
+  font-size: 13px;
+  color: var(--ink-2);
+  line-height: 1.8;
+}
+.dual-card .body strong { color: var(--ink); }
+
+/* Twin Bar Chart */
+.twin-chart {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  padding: 24px 28px;
+  margin: 20px 0;
+}
+.twin-chart h4 {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.twin-chart .ssub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--ink-4);
+  letter-spacing: 0.1em;
+  margin-bottom: 24px;
+}
+.legend {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink-2);
+}
+.legend-item .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+.legend-item .dot.haruto { background: var(--haruto); }
+.legend-item .dot.tsubasa { background: var(--tsubasa); }
+
+.twin-row {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 16px;
+  margin-bottom: 14px;
+  align-items: center;
+}
+.twin-row .month {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--ink-3);
+  font-weight: 500;
+}
+.twin-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.twin-bar {
+  height: 22px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.twin-bar .track {
+  background: var(--bg-soft);
+  height: 100%;
+  position: relative;
+  border-radius: 2px;
+  overflow: hidden;
+  flex: 1;
+}
+.twin-bar .fill {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 10px;
+  color: white;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.twin-bar.haruto .fill { background: linear-gradient(90deg, var(--haruto) 0%, #14463a 100%); }
+.twin-bar.tsubasa .fill { background: linear-gradient(90deg, var(--tsubasa) 0%, #6a2a18 100%); }
+
+/* Table */
+.tbl-wrap {
+  overflow-x: auto;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+table th {
+  background: var(--bg-soft);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--ink-3);
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line-2);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+table tr:last-child td { border-bottom: none; }
+table td.num {
+  font-family: 'JetBrains Mono', monospace;
+  text-align: right;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+table td.dt {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-3);
+}
+.tbl-h th.colsep { border-left: 2px solid var(--haruto); }
+.tbl-h th.col-tsu { border-left: 2px solid var(--tsubasa); }
+.h-col { background: rgba(45,106,63,0.04); }
+.t-col { background: rgba(184,72,44,0.04); }
+.winner { font-weight: 700; }
+.h-win { color: var(--haruto); }
+.t-win { color: var(--tsubasa); }
+.pill {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 2px;
+  font-variant-numeric: tabular-nums;
+}
+.pill.haruto { background: var(--haruto-bg); color: var(--haruto); }
+.pill.tsubasa { background: var(--tsubasa-bg); color: var(--tsubasa); }
+.pill.neutral { background: var(--bg-soft); color: var(--ink-3); }
+.theme {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 8px;
+  background: var(--bg-soft);
+  border-radius: 2px;
+  color: var(--ink-2);
+}
+.theme.new { background: #e3eef7; color: var(--navy); font-weight: 700; }
+
+/* Title elements analysis */
+.elem-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+.elem {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--haruto);
+  padding: 18px 20px;
+}
+.elem h4 {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+.elem .lab {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--haruto);
+  letter-spacing: 0.15em;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+.elem .ex {
+  font-size: 12px;
+  color: var(--ink-2);
+  line-height: 1.7;
+  font-style: italic;
+  padding: 8px 10px;
+  background: var(--haruto-bg);
+  margin-top: 8px;
+  border-radius: 2px;
+}
+.elem .ex strong { color: var(--haruto); font-style: normal; }
+
+/* Title example boxes */
+.tex-box {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  padding: 16px 20px;
+  margin: 8px 0;
+}
+.tex-box.h { border-left: 3px solid var(--haruto); }
+.tex-box.t { border-left: 3px solid var(--tsubasa); }
+.tex-box .meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--ink-4);
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+.tex-box.h .meta { color: var(--haruto); }
+.tex-box.t .meta { color: var(--tsubasa); }
+.tex-box .title {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+.tex-box .stats {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-3);
+}
+.tex-box .stats strong { color: var(--ink); }
+
+/* Notes */
+.notes {
+  background: var(--bg-soft);
+  border-left: 3px solid var(--ink-4);
+  padding: 16px 20px;
+  font-size: 12px;
+  color: var(--ink-2);
+  line-height: 1.8;
+  margin-top: 16px;
+}
+.notes strong { color: var(--ink); }
+.notes .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--ink-3);
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+/* Verdict */
+.verdict-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 20px;
+}
+.verdict-row {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  padding: 20px 24px;
+  display: grid;
+  grid-template-columns: 60px 1fr 2fr 2fr;
+  gap: 24px;
+  align-items: start;
+}
+.verdict-row .num {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 800;
+  font-size: 38px;
+  line-height: 1;
+  color: var(--accent);
+}
+.verdict-row .title {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.v-cell {
+  padding: 12px 14px;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.v-cell.h {
+  background: var(--haruto-bg);
+  border-left: 2px solid var(--haruto);
+}
+.v-cell.t {
+  background: var(--tsubasa-bg);
+  border-left: 2px solid var(--tsubasa);
+}
+.v-cell .who {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+.v-cell.h .who { color: var(--haruto); }
+.v-cell.t .who { color: var(--tsubasa); }
+
+/* Footer */
+footer {
+  background: var(--bg-soft);
+  padding: 32px 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-3);
+}
+.foot-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+.foot-col strong {
+  display: block;
+  color: var(--ink);
+  letter-spacing: 0.15em;
+  margin-bottom: 8px;
+  font-size: 10px;
+}
+.foot-col div { line-height: 1.7; }
+.foot-bot {
+  padding-top: 16px;
+  border-top: 1px solid var(--line-2);
+  text-align: center;
+  font-size: 10px;
+  color: var(--ink-4);
+}
+
+@media (max-width: 900px) {
+  .kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .dual, .elem-grid { grid-template-columns: 1fr; }
+  .verdict-row { grid-template-columns: 1fr; gap: 12px; }
+  .verdict-row .num { font-size: 28px; }
+  .exec ul { grid-template-columns: 1fr; }
+  .sec-head { flex-direction: column; align-items: flex-start; gap: 8px; }
+  h2 { padding-left: 0; }
+}
+</style>
+</head>
+<body>
+
+<header class="doc-head">
+  <div class="wrap">
+    <h1>
+      はると × ツバサ 比較分析
+      <span class="sub">なぜ片方は伸び続け、片方は失速したか ／ 期間：2026.01.01 - 2026.04.30</span>
+    </h1>
+    <div class="doc-meta">
+      <span>REPORT <strong>2026.05.11</strong></span>
+      <span>DATA <strong>Windsor.ai</strong></span>
+    </div>
+  </div>
+</header>
+
+<!-- 00 SUMMARY -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num"><strong>00</strong> ／ SUMMARY</span>
+      <h2>結論サマリー</h2>
+    </div>
+
+    <div class="exec">
+      <h3>FINDINGS</h3>
+      <p class="lead">
+        1月時点では両者ほぼ互角だったが、<strong>2月で完全に分岐した</strong>。はるとは月合計views 184,595 → 153,985（83%維持）でほぼ落とさず、ツバサは187,825 → 48,885（26%まで激減）。差を生んだのは「動画の質」ではなく<strong>運用構造の3要素：①サブチャンネルの設計思想、②タイトルテンプレートの一貫性、③新規テーマ投入の能動性</strong>。ツバサが回復するには、これら3要素を構造として導入する必要がある。
+      </p>
+      <ul>
+        <li>はるとサブ「Haruto | AI自動化副業ラボ」は単独投稿42日／総views 243,913／ヒット動画15本／平均5,807views</li>
+        <li>ツバササブ「KAMIYA」は同日2本セット投稿100%／3テーマ反復／総views 2,028／ヒット0本／平均127views</li>
+        <li>はるとはタイトルに「実績数字＋完結ワード＋救済者ポジション＋キャラ物語」の4要素を一貫使用、ツバサは1月以降これが崩れた</li>
+        <li>はるとは新規テーマ（AI人生相談、ポッドキャスト、Google Opal、Manus AI）を月1-2本投入、ツバサは既存テーマの焼き直し中心</li>
+      </ul>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi haruto">
+        <div class="label">はるとサブ 平均views/本</div>
+        <div class="value">5,807</div>
+        <div class="delta">42本／ヒット動画15本</div>
+      </div>
+      <div class="kpi tsubasa">
+        <div class="label">ツバササブ KAMIYA 平均views/本</div>
+        <div class="value">127</div>
+        <div class="delta">18本／ヒット動画0本</div>
+      </div>
+      <div class="kpi diff">
+        <div class="label">サブの同日2本投稿率</div>
+        <div class="value">0% vs 100%</div>
+        <div class="delta">はると0/42日 ／ KAMIYA 8/8日</div>
+      </div>
+      <div class="kpi diff">
+        <div class="label">4月ヒット率（5k+/全動画）</div>
+        <div class="value">40% vs 6%</div>
+        <div class="delta">はると6/15本 / ツバサ1/16本</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 01 THE TURNING POINT -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num"><strong>01</strong> ／ THE TURNING POINT</span>
+      <h2>2月、何が起きたか</h2>
+      <span class="sec-actions">SOURCE: Windsor.ai / 月別総views</span>
+    </div>
+
+    <div class="twin-chart">
+      <h4>月別 総views（はると2チャンネル合計 vs ツバサメイン）</h4>
+      <div class="ssub">2025.10 - 2026.04 ／ 動画の本数差を排除するため「総views」で比較</div>
+      <div class="legend">
+        <div class="legend-item"><div class="dot haruto"></div>はると（メイン＋サブ合計）</div>
+        <div class="legend-item"><div class="dot tsubasa"></div>ツバサ（メイン）</div>
+      </div>
+
+      <div class="twin-row">
+        <div class="month">2025.10</div>
+        <div class="twin-bars">
+          <div class="twin-bar haruto"><div class="track"><div class="fill" style="width:4%">7,358</div></div></div>
+          <div class="twin-bar tsubasa"><div class="track"><div class="fill" style="width:37%">70,175</div></div></div>
+        </div>
+      </div>
+      <div class="twin-row">
+        <div class="month">2025.11</div>
+        <div class="twin-bars">
+          <div class="twin-bar haruto"><div class="track"><div class="fill" style="width:16%">30,232</div></div></div>
+          <div class="twin-bar tsubasa"><div class="track"><div class="fill" style="width:78%">145,789</div></div></div>
+        </div>
+      </div>
+      <div class="twin-row">
+        <div class="month">2025.12</div>
+        <div class="twin-bars">
+          <div class="twin-bar haruto"><div class="track"><div class="fill" style="width:47%">87,724</div></div></div>
+          <div class="twin-bar tsubasa"><div class="track"><div class="fill" style="width:86%">162,061</div></div></div>
+        </div>
+      </div>
+      <div class="twin-row">
+        <div class="month">2026.01</div>
+        <div class="twin-bars">
+          <div class="twin-bar haruto"><div class="track"><div class="fill" style="width:98%">184,595</div></div></div>
+          <div class="twin-bar tsubasa"><div class="track"><div class="fill" style="width:100%">187,825</div></div></div>
+        </div>
+      </div>
+      <div class="twin-row">
+        <div class="month">2026.02 ⚠</div>
+        <div class="twin-bars">
+          <div class="twin-bar haruto"><div class="track"><div class="fill" style="width:82%">153,985</div></div></div>
+          <div class="twin-bar tsubasa"><div class="track"><div class="fill" style="width:26%">48,885</div></div></div>
+        </div>
+      </div>
+      <div class="twin-row">
+        <div class="month">2026.03</div>
+        <div class="twin-bars">
+          <div class="twin-bar haruto"><div class="track"><div class="fill" style="width:33%">62,370</div></div></div>
+          <div class="twin-bar tsubasa"><div class="track"><div class="fill" style="width:26%">48,538</div></div></div>
+        </div>
+      </div>
+      <div class="twin-row">
+        <div class="month">2026.04</div>
+        <div class="twin-bars">
+          <div class="twin-bar haruto"><div class="track"><div class="fill" style="width:41%">77,544</div></div></div>
+          <div class="twin-bar tsubasa"><div class="track"><div class="fill" style="width:18%">34,372</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="notes">
+      <div class="label">KEY OBSERVATION</div>
+      ・2025年は<strong>ツバサのほうが圧倒的に上だった</strong>（11月：145,789 vs 30,232で5倍差）。<br>
+      ・1月で両者並んだ後、<strong>2月から完全逆転</strong>。はると83%維持、ツバサ26%まで急落。<br>
+      ・3月以降はツバサがはるとの45-65%に固定化。<strong>1月の落差は一時的事象ではなく、構造的に置き換わった</strong>と読める。
+    </div>
+  </div>
+</section>
+
+<!-- 02 CHANNEL STRATEGY -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num"><strong>02</strong> ／ CHANNEL STRATEGY</span>
+      <h2>差の核心①：サブチャンネルの設計思想</h2>
+      <span class="sec-actions">最大の構造差</span>
+    </div>
+
+    <p style="font-size: 13px; color: var(--ink-2); margin-bottom: 20px;">
+      両者ともサブチャンネルを運用しているが、設計思想が真逆。はるとサブは「独立媒体」、ツバササブKAMIYAは「メインの拡張機能」として運用されている。
+    </p>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th rowspan="2">月</th>
+            <th colspan="3" class="colsep" style="text-align:center; color: var(--haruto);">はると メイン</th>
+            <th colspan="3" class="colsep" style="text-align:center; color: var(--haruto);">はると サブ</th>
+            <th colspan="3" class="col-tsu" style="text-align:center; color: var(--tsubasa);">ツバサ メイン</th>
+          </tr>
+          <tr>
+            <th class="colsep">本数</th><th class="num">VIEWS</th><th class="num">ヒット</th>
+            <th class="colsep">本数</th><th class="num">VIEWS</th><th class="num">ヒット</th>
+            <th class="col-tsu">本数</th><th class="num">VIEWS</th><th class="num">ヒット</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="dt">2025.10</td>
+            <td class="h-col">17</td><td class="num h-col">7,358</td><td class="num h-col">0</td>
+            <td class="h-col">0</td><td class="num h-col">—</td><td class="num h-col">—</td>
+            <td class="t-col">24</td><td class="num t-col">70,175</td><td class="num t-col">3</td>
+          </tr>
+          <tr>
+            <td class="dt">2025.11</td>
+            <td class="h-col">15</td><td class="num h-col">29,842</td><td class="num h-col">2</td>
+            <td class="h-col">1</td><td class="num h-col">390</td><td class="num h-col">0</td>
+            <td class="t-col">26</td><td class="num t-col">145,789</td><td class="num t-col">4</td>
+          </tr>
+          <tr>
+            <td class="dt">2025.12</td>
+            <td class="h-col">13</td><td class="num h-col">83,724</td><td class="num h-col">6</td>
+            <td class="h-col">2</td><td class="num h-col">4,000</td><td class="num h-col">0</td>
+            <td class="t-col">22</td><td class="num t-col">162,061</td><td class="num t-col">9</td>
+          </tr>
+          <tr>
+            <td class="dt">2026.01</td>
+            <td class="h-col">10</td><td class="num h-col">173,694</td><td class="num h-col">6</td>
+            <td class="h-col">4</td><td class="num h-col">10,901</td><td class="num h-col">0</td>
+            <td class="t-col winner t-win">24</td><td class="num t-col winner t-win">187,825</td><td class="num t-col winner t-win">14</td>
+          </tr>
+          <tr style="border-top: 2px solid var(--accent);">
+            <td class="dt"><strong style="color: var(--accent);">2026.02 ⚠</strong></td>
+            <td class="h-col">6</td><td class="num h-col">57,799</td><td class="num h-col">5</td>
+            <td class="h-col winner h-win"><strong>7</strong></td><td class="num h-col winner h-win"><strong>96,186</strong></td><td class="num h-col winner h-win"><strong>6</strong></td>
+            <td class="t-col">13</td><td class="num t-col">48,885</td><td class="num t-col">4</td>
+          </tr>
+          <tr>
+            <td class="dt">2026.03</td>
+            <td class="h-col">0</td><td class="num h-col">—</td><td class="num h-col">—</td>
+            <td class="h-col winner h-win"><strong>16</strong></td><td class="num h-col winner h-win"><strong>62,370</strong></td><td class="num h-col winner h-win"><strong>3</strong></td>
+            <td class="t-col">18</td><td class="num t-col">48,538</td><td class="num t-col">2</td>
+          </tr>
+          <tr>
+            <td class="dt">2026.04</td>
+            <td class="h-col">3</td><td class="num h-col">7,478</td><td class="num h-col">0</td>
+            <td class="h-col winner h-win"><strong>12</strong></td><td class="num h-col winner h-win"><strong>70,066</strong></td><td class="num h-col winner h-win"><strong>6</strong></td>
+            <td class="t-col">16</td><td class="num t-col">34,372</td><td class="num t-col">1</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="dual">
+      <div class="dual-card haruto">
+        <div class="who">はるとサブ ／ 独立媒体として設計</div>
+        <h3>1日1本の単独投稿で独立コンテンツ</h3>
+        <div class="body">
+          投稿42日<strong>すべて単独投稿（同日2本投稿0回）</strong>。各動画はテーマ・主役・切り口がメインと独立。AI人生相談・ADHD男・60代主婦・シニア無双など<strong>メインで扱っていない新規ジャンルを13本以上投入</strong>。<br><br>
+          結果：サブviews 1月10,901 → 2月96,186（<strong>8.8倍</strong>）。平均5,807views/本、ヒット動画15本。メインで届かなかった層（ADHD当事者・シニア・人生相談関心層）に到達。
+        </div>
+      </div>
+      <div class="dual-card tsubasa">
+        <div class="who">ツバササブ KAMIYA ／ メインの拡張機能</div>
+        <h3>同日2本セット投稿（100%）でメインのバリエーション</h3>
+        <div class="body">
+          投稿8日<strong>すべて同日2本セット（100%）</strong>。各セットはメインで扱った同一テーマをロング＋Shortの並列投稿。<strong>全16本がCanva・楽天ROOM・LINEスタンプの3テーマに収束</strong>、新規テーマゼロ。<br><br>
+          結果：平均127views/本、ヒット動画0本、最高385views。独立媒体としての視聴層プロフィールが構築されず、既存ファンの範囲を超えない。アルゴリズム上「メインのバリエーション」と認識されている可能性。
+        </div>
+      </div>
+    </div>
+
+    <div class="tbl-wrap" style="margin-top: 20px;">
+      <table>
+        <thead>
+          <tr><th>サブチャン指標</th><th class="num">はるとサブ</th><th class="num">ツバササブ KAMIYA</th><th class="num">倍率</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>累計投稿本数</td><td class="num h-col">42本</td><td class="num t-col">18本</td><td class="num"><span class="pill haruto">×2.3</span></td></tr>
+          <tr><td>累計総views</td><td class="num h-col">243,913</td><td class="num t-col">2,028</td><td class="num"><span class="pill haruto">×120</span></td></tr>
+          <tr><td>累計登録獲得</td><td class="num h-col">6,515</td><td class="num t-col">15</td><td class="num"><span class="pill haruto">×434</span></td></tr>
+          <tr><td>平均views/本</td><td class="num h-col">5,807</td><td class="num t-col">127</td><td class="num"><span class="pill haruto">×46</span></td></tr>
+          <tr><td>最大views（単発）</td><td class="num h-col">27,366</td><td class="num t-col">385</td><td class="num"><span class="pill haruto">×71</span></td></tr>
+          <tr><td>ヒット動画数（5k+）</td><td class="num h-col">15本</td><td class="num t-col">0本</td><td class="num"><span class="pill haruto">∞</span></td></tr>
+          <tr><td>同日2本投稿率</td><td class="num h-col">0%</td><td class="num t-col">100%</td><td class="num"><span class="pill bad">真逆</span></td></tr>
+          <tr><td>カバーテーマ数</td><td class="num h-col">12+カテゴリ</td><td class="num t-col">3カテゴリのみ</td><td class="num"><span class="pill haruto">×4</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="notes">
+      <div class="label">CORE OBSERVATION</div>
+      両者ともサブを運用しているが、設計思想が真逆。<strong>はるとサブは「独立媒体」（単独投稿・新規テーマ・別視聴層）として運用</strong>、<strong>ツバササブは「メインの拡張機能」（同日2本セット・同テーマ反復・既存層）として運用</strong>。投稿頻度や本数の差ではなく、<strong>サブをどう設計するかの前提が違う</strong>ことが核心。
+    </div>
+  </div>
+</section>
+
+<!-- 03 HIT RATE -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num"><strong>03</strong> ／ HIT RATE</span>
+      <h2>差の核心②：動画ヒット率（5,000views以上の発生率）</h2>
+    </div>
+
+    <p style="font-size: 13px; color: var(--ink-2); margin-bottom: 20px;">
+      「投稿数のうち何%がヒット動画になったか」を比較。1月は両者拮抗だが、2月以降に圧倒的な差がつく。
+    </p>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>月</th>
+            <th class="num colsep">はると 投稿総数</th>
+            <th class="num">はると ヒット数</th>
+            <th class="num">はると ヒット率</th>
+            <th class="num col-tsu">ツバサ 投稿数</th>
+            <th class="num">ツバサ ヒット数</th>
+            <th class="num">ツバサ ヒット率</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="dt">2026.01</td>
+            <td class="num h-col">14</td><td class="num h-col">6</td><td class="num h-col"><span class="pill haruto">43%</span></td>
+            <td class="num t-col">24</td><td class="num t-col">14</td><td class="num t-col winner t-win"><span class="pill tsubasa">58%</span></td>
+          </tr>
+          <tr>
+            <td class="dt">2026.02</td>
+            <td class="num h-col">13</td><td class="num h-col">11</td><td class="num h-col winner h-win"><span class="pill haruto">85%</span></td>
+            <td class="num t-col">13</td><td class="num t-col">4</td><td class="num t-col"><span class="pill tsubasa">31%</span></td>
+          </tr>
+          <tr>
+            <td class="dt">2026.03</td>
+            <td class="num h-col">16</td><td class="num h-col">3</td><td class="num h-col winner h-win"><span class="pill haruto">19%</span></td>
+            <td class="num t-col">18</td><td class="num t-col">2</td><td class="num t-col"><span class="pill tsubasa">11%</span></td>
+          </tr>
+          <tr>
+            <td class="dt">2026.04</td>
+            <td class="num h-col">15</td><td class="num h-col">6</td><td class="num h-col winner h-win"><span class="pill haruto">40%</span></td>
+            <td class="num t-col">16</td><td class="num t-col">1</td><td class="num t-col"><span class="pill tsubasa">6%</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="notes">
+      <div class="label">READ</div>
+      ・2月で<strong>85% vs 31%</strong>の決定的乖離。これは「テーマ運」ではなく構造的成功率の差。<br>
+      ・4月の<strong>40% vs 6%</strong>はさらに広がっている。ツバサは現在「投稿してもほぼ当たらない」状態。<br>
+      ・1月単月だけ見るとツバサ58%>はると43%だが、はるとは2月以降に最適化が進んだとも読める。
+    </div>
+  </div>
+</section>
+
+<!-- 04 TITLE PATTERN -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num"><strong>04</strong> ／ TITLE PATTERN</span>
+      <h2>差の核心③：タイトル構造</h2>
+      <span class="sec-actions">はるとの4要素テンプレート</span>
+    </div>
+
+    <p style="font-size: 13px; color: var(--ink-2); margin-bottom: 20px;">
+      はるとのヒット動画タイトルを分解すると、4つの要素が一貫して組み込まれている。ツバサは1月以降この型から離脱している。
+    </p>
+
+    <div class="elem-grid">
+      <div class="elem">
+        <div class="lab">ELEMENT 01</div>
+        <h4>① 実績数字を先出し</h4>
+        <p style="font-size: 12px; color: var(--ink-2); line-height: 1.7;">
+          「<strong>○○万益達成</strong>」「<strong>先ほど○○万を達成しました</strong>」など、本人が稼いだ実績を最初に提示。視聴者に即座の信頼を付与し、動画の権威性を立てる。
+        </p>
+        <div class="ex">EX: 「先ほど<strong>650万の利益を達成</strong>しました…」「<strong>776万益達成</strong>！」「<strong>600万収益化できました</strong>」</div>
+      </div>
+
+      <div class="elem">
+        <div class="lab">ELEMENT 02</div>
+        <h4>② 結論完結ワード</h4>
+        <p style="font-size: 12px; color: var(--ink-2); line-height: 1.7;">
+          「<strong>完全版</strong>」「<strong>金字塔</strong>」「<strong>本邦初公開</strong>」「<strong>全てが分かる</strong>」など、これさえ見れば全てが分かる<strong>「終着点」を約束</strong>。期待値の天井を引き上げる。
+        </p>
+        <div class="ex">EX: 「Canva副業<strong>完全版</strong>」「スマホ副業の<strong>金字塔</strong>」「裏収益化ルートを<strong>本邦初公開</strong>」</div>
+      </div>
+
+      <div class="elem">
+        <div class="lab">ELEMENT 03</div>
+        <h4>③ 救済者ポジション</h4>
+        <p style="font-size: 12px; color: var(--ink-2); line-height: 1.7;">
+          「<strong>伸びない人にガチおすすめしたい</strong>」「<strong>設計図をプレゼント</strong>」など、失敗者を否定せず「<strong>助ける側</strong>」に立つ表現。視聴者の現状を肯定したまま導入できる。
+        </p>
+        <div class="ex">EX: 「塗り絵副業が<strong>伸びない人にガチおすすめしたい</strong>」「スペシャル<strong>設計図をプレゼント</strong>」</div>
+      </div>
+
+      <div class="elem">
+        <div class="lab">ELEMENT 04</div>
+        <h4>④ キャラクター物語</h4>
+        <p style="font-size: 12px; color: var(--ink-2); line-height: 1.7;">
+          「<strong>"服役"から人生大逆転を果たした男</strong>」「<strong>40代独身ADHD男</strong>」「<strong>借金まみれの男</strong>」など、強烈な属性を持つ主役を立てる。視聴者の共感ポイントを擬人化。
+        </p>
+        <div class="ex">EX: 「<strong>"服役"から人生大逆転</strong>を果たした男」「ホンモノすぎる<strong>40代独身ADHD男</strong>」</div>
+      </div>
+    </div>
+
+    <h3 style="font-family: 'Shippori Mincho', serif; font-weight: 700; font-size: 18px; margin: 32px 0 12px;">はると ヒット動画タイトル（1月以降）</h3>
+
+    <div class="tex-box h">
+      <div class="meta">2026-01-08 ／ メイン</div>
+      <div class="title">【スマホ副業の<strong>金字塔</strong>】たった1枚のステッカーで人生変わりました…！これぞCanva副業<strong>完全版</strong>！<strong>90万益を実現</strong>した裏収益化ルートを<strong>本邦初公開</strong>！</div>
+      <div class="stats">views <strong>69,790</strong> ／ 登録獲得 <strong>3,025</strong> ／ 4要素全て搭載</div>
+    </div>
+
+    <div class="tex-box h">
+      <div class="meta">2026-01-22 ／ メイン</div>
+      <div class="title">【※中毒注意】AI 副業 ×音楽、才能ゼロでも<strong>600万収益化できました</strong>…！<strong>"服役"から人生大逆転を果たした男</strong>の最強メソッドを徹底解説！！！</div>
+      <div class="stats">views <strong>23,189</strong> ／ 登録獲得 <strong>600</strong> ／ 実績＋キャラ物語</div>
+    </div>
+
+    <div class="tex-box h">
+      <div class="meta">2026-02-06 ／ サブ</div>
+      <div class="title">【副業 在宅】ホンモノすぎる<strong>40代独身ADHD男</strong>が月30万を実現した！99.99%が知らない！AIと会話をするだけで利益を生み出す方法を徹底解説！</div>
+      <div class="stats">views <strong>27,366</strong> ／ 登録獲得 <strong>1,677</strong> ／ キャラ物語が主役</div>
+    </div>
+
+    <div class="tex-box h">
+      <div class="meta">2026-02-19 ／ サブ</div>
+      <div class="title">【魔法のプロンプト公開】塗り絵 副業 が<strong>伸びない人にガチおすすめしたい</strong>！AIの性能を100倍に引き上げ売れる塗り絵を錬成する、<strong>究極の必殺技を伝授します</strong></div>
+      <div class="stats">views <strong>20,587</strong> ／ 登録獲得 <strong>807</strong> ／ 救済者ポジション主軸</div>
+    </div>
+
+    <h3 style="font-family: 'Shippori Mincho', serif; font-weight: 700; font-size: 18px; margin: 32px 0 12px;">ツバサ 直近タイトル（同期間）</h3>
+
+    <div class="tex-box t">
+      <div class="meta">2026-04-24 ／ メイン</div>
+      <div class="title">【副業 → 月70万】AI×塗り絵のこと舐めてる？初心者が99％ハマる致命的な落とし穴</div>
+      <div class="stats">views <strong>2,735</strong> ／ LINE登録 <strong>6</strong> ／ <span style="color: var(--tsubasa);">実績／完結／救済者／物語すべて欠落</span></div>
+    </div>
+
+    <div class="tex-box t">
+      <div class="meta">2026-04-14 ／ メイン</div>
+      <div class="title">【副業 → 500万】Canvaで出来る副業の最高地点！AI×塗り絵が上手くいかない人は設計を理解すべき</div>
+      <div class="stats">views <strong>2,742</strong> ／ LINE登録 <strong>10</strong> ／ <span style="color: var(--tsubasa);">「上手くいかない人は」が詰問型に変質</span></div>
+    </div>
+
+    <div class="tex-box t">
+      <div class="meta">2026-05-05 ／ メイン</div>
+      <div class="title">【2026年 最新 副業】ガチだった…67歳のシニア世代がnoteで月120万超えた話</div>
+      <div class="stats">views <strong>6,835</strong> ／ LINE登録 <strong>7</strong> ／ <span style="color: var(--tsubasa);">体験談型に振れて方法論不明</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 THEME -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num"><strong>05</strong> ／ THEME STRATEGY</span>
+      <h2>差の核心④：新規テーマ投入の能動性</h2>
+    </div>
+
+    <p style="font-size: 13px; color: var(--ink-2); margin-bottom: 20px;">
+      はるとは既存テーマ（Canva・楽天ROOM・LINEスタンプ・塗り絵）を続けつつ、月1-2本のペースで新規テーマを投入。ツバサは新規テーマ投入が大幅に減速している。
+    </p>
+
+    <div class="dual">
+      <div class="dual-card haruto">
+        <div class="who">はると ／ 同期間に投入した新規テーマ</div>
+        <h3>月1-2本の新規テーマ投入</h3>
+        <div class="body" style="font-size: 12px;">
+          <div style="margin-bottom: 6px;">• <span class="theme new">AI人生相談</span> (4/3 サブ ／ views 12,511 ／ +345登録)</div>
+          <div style="margin-bottom: 6px;">• <span class="theme new">AIポッドキャスト</span> (4/17 サブ ／ views 4,445)</div>
+          <div style="margin-bottom: 6px;">• <span class="theme new">Google Opal</span> (1/15 メイン ／ views 3,612)</div>
+          <div style="margin-bottom: 6px;">• <span class="theme new">ADHD男 ストーリー</span> (2/6 サブ ／ views 27,366 ／ +1,677登録)</div>
+          <div style="margin-bottom: 6px;">• <span class="theme new">シニア向け穴場</span> (3/22 サブ ／ views 13,423 ／ +495登録)</div>
+          <div style="margin-bottom: 6px;">• <span class="theme new">Manus AI / Grok+Opal</span> (3/5 サブ)</div>
+          <div style="margin-bottom: 6px;">• <span class="theme new">AI音楽メソッド</span> (服役男ストーリー、views 23,189)</div>
+          <div style="margin-bottom: 6px;">• <span class="theme new">和風塗り絵</span> (4/2 サブ ／ views 8,178)</div>
+          <div style="margin-bottom: 6px;">• <span class="theme new">和風ポスター戦略</span> (4/9 サブ ／ views 5,024)</div>
+          <div style="margin-bottom: 6px;">• <span class="theme new">浮世絵×塗り絵</span> (1/13 メイン ／ views 30,594)</div>
+          <p style="margin-top:12px;"><strong>合計：10本前後の明確な新テーマ</strong>。既存テーマも切り口（シニア向け・ADHD男・伸びない人向け）で再切り出し。</p>
+        </div>
+      </div>
+      <div class="dual-card tsubasa">
+        <div class="who">ツバサ ／ 同期間の新規テーマ</div>
+        <h3>新テーマ投入が2本のみ</h3>
+        <div class="body" style="font-size: 12px;">
+          <div style="margin-bottom: 6px;">• <span class="theme new">ラジオ配信</span> (4/28 ／ views 4,561 ／ +33)</div>
+          <div style="margin-bottom: 6px;">• <span class="theme new">シニアnote</span> (5/5 ／ views 6,835 ／ +2)</div>
+          <div style="margin-bottom: 12px;">• <span class="theme">楽天ROOM</span>（同期間 5本以上）</div>
+          <div style="margin-bottom: 6px;">• <span class="theme">Canva・塗り絵</span>（同期間 7本以上）</div>
+          <div style="margin-bottom: 6px;">• <span class="theme">LINEスタンプ</span>（同期間 4本以上）</div>
+          <p style="margin-top:12px;"><strong>新テーマ：2本のみ</strong>。残りは過去ヒット済みテーマの<strong>同じ切り口での焼き直し</strong>。「未経験でも・スマホで・本業超え」のテンプレが反復され、テーマ別ペルソナの広がりが生まれていない。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="notes">
+      <div class="label">STRUCTURAL OBSERVATION</div>
+      はるとが新テーマで「<strong>キャラ物語×新ジャンル</strong>」（ADHD男×AI会話、服役男×AI音楽、シニア×穴場副業）の組み合わせを高頻度で繰り出しているのに対し、ツバサは新テーマでも「論理的解説型」に留まっている。<strong>「誰の話なのか」が立たないため、新テーマでもアルゴリズムが新規層への配信先を判断できていない可能性</strong>がある。
+    </div>
+  </div>
+</section>
+
+<!-- 06 TOP HITS -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num"><strong>06</strong> ／ TOP HITS</span>
+      <h2>2026年1月以降の TOP10 動画（両者合算）</h2>
+      <span class="sec-actions">views順</span>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th class="num">RANK</th><th>公開日</th><th>チャンネル</th><th class="num">VIEWS</th><th class="num">登録獲得</th><th>テーマ・タイトル要素</th></tr>
+        </thead>
+        <tbody>
+          <tr class="h-col">
+            <td class="num">01</td><td class="dt">2026-01-08</td><td><span class="pill haruto">はると メイン</span></td>
+            <td class="num"><strong>69,790</strong></td><td class="num"><strong>3,025</strong></td>
+            <td>ステッカー副業 <span class="theme">金字塔／完全版／90万益／本邦初</span></td>
+          </tr>
+          <tr class="h-col">
+            <td class="num">02</td><td class="dt">2026-01-13</td><td><span class="pill haruto">はると メイン</span></td>
+            <td class="num"><strong>30,594</strong></td><td class="num"><strong>1,216</strong></td>
+            <td>浮世絵×塗り絵 <span class="theme">776万益達成／本邦初公開</span></td>
+          </tr>
+          <tr class="h-col">
+            <td class="num">03</td><td class="dt">2026-02-06</td><td><span class="pill haruto">はると サブ</span></td>
+            <td class="num"><strong>27,366</strong></td><td class="num"><strong>1,677</strong></td>
+            <td>ADHD男×AI会話 <span class="theme">キャラ物語型</span></td>
+          </tr>
+          <tr class="h-col">
+            <td class="num">04</td><td class="dt">2026-01-22</td><td><span class="pill haruto">はると メイン</span></td>
+            <td class="num"><strong>23,189</strong></td><td class="num"><strong>600</strong></td>
+            <td>AI音楽 <span class="theme">服役男ストーリー／600万収益化</span></td>
+          </tr>
+          <tr class="h-col">
+            <td class="num">05</td><td class="dt">2026-02-19</td><td><span class="pill haruto">はると サブ</span></td>
+            <td class="num"><strong>20,587</strong></td><td class="num"><strong>807</strong></td>
+            <td>塗り絵プロンプト <span class="theme">伸びない人向け／究極の必殺技</span></td>
+          </tr>
+          <tr class="h-col">
+            <td class="num">06</td><td class="dt">2026-02-08</td><td><span class="pill haruto">はると メイン</span></td>
+            <td class="num"><strong>20,052</strong></td><td class="num"><strong>541</strong></td>
+            <td>音楽副業 <span class="theme">伸びない人向け／設計図プレゼント</span></td>
+          </tr>
+          <tr class="h-col">
+            <td class="num">07</td><td class="dt">2026-02-23</td><td><span class="pill haruto">はると サブ</span></td>
+            <td class="num"><strong>19,634</strong></td><td class="num"><strong>1,082</strong></td>
+            <td>シニア無双 <span class="theme new">新テーマ</span></td>
+          </tr>
+          <tr class="h-col">
+            <td class="num">08</td><td class="dt">2026-01-18</td><td><span class="pill haruto">はると メイン</span></td>
+            <td class="num"><strong>15,450</strong></td><td class="num"><strong>332</strong></td>
+            <td>Canva副業3選 <span class="theme">中毒注意／救済者ポジション</span></td>
+          </tr>
+          <tr class="h-col">
+            <td class="num">09</td><td class="dt">2026-03-22</td><td><span class="pill haruto">はると サブ</span></td>
+            <td class="num"><strong>13,423</strong></td><td class="num"><strong>495</strong></td>
+            <td>シニア向け穴場 <span class="theme new">新テーマ</span></td>
+          </tr>
+          <tr class="h-col">
+            <td class="num">10</td><td class="dt">2026-02-26</td><td><span class="pill haruto">はると サブ</span></td>
+            <td class="num"><strong>13,163</strong></td><td class="num"><strong>364</strong></td>
+            <td>楽天ROOM絶対法則 <span class="theme">60代女性主役</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="notes">
+      <div class="label">CRITICAL FACT</div>
+      <strong>1月以降のTOP10は全てはると</strong>。同期間でツバサのメイン最高は2026/1/7楽天ROOM（32,856views、3位相当）だが、4月最高でも5,002viewsまで急降下している。
+    </div>
+  </div>
+</section>
+
+<!-- 07 VERDICT -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num"><strong>07</strong> ／ VERDICT</span>
+      <h2>差分マトリクス</h2>
+    </div>
+
+    <p style="font-size: 13px; color: var(--ink-2); margin-bottom: 8px;">
+      ツバサが失った／持っていなかった4つの構造要素。
+    </p>
+
+    <div class="verdict-grid">
+      <div class="verdict-row">
+        <div class="num">01</div>
+        <div>
+          <div class="title">サブチャンネルの設計思想</div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-4); margin-top: 4px;">PRIORITY: HIGHEST</div>
+        </div>
+        <div class="v-cell h">
+          <div class="who">HARUTO</div>
+          独立媒体として設計。1日1本の単独投稿、メインと異なるテーマ・主役・切り口。メインと別の視聴層プロフィールを並走構築（ADHD当事者・シニア・人生相談関心層など）。
+        </div>
+        <div class="v-cell t">
+          <div class="who">TSUBASA</div>
+          メインの拡張機能として運用。同日2本セット投稿100%、Canva・楽天ROOM・LINEスタンプの3テーマ反復。アルゴリズム上「メインのバリエーション」と認識される構造。
+        </div>
+      </div>
+
+      <div class="verdict-row">
+        <div class="num">02</div>
+        <div>
+          <div class="title">タイトル4要素テンプレ</div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-4); margin-top: 4px;">PRIORITY: HIGH</div>
+        </div>
+        <div class="v-cell h">
+          <div class="who">HARUTO</div>
+          実績数字＋完結ワード＋救済者ポジション＋キャラ物語の4要素を一貫使用。1月以降のTOP10全てがこの型。
+        </div>
+        <div class="v-cell t">
+          <div class="who">TSUBASA</div>
+          1月までは結論完結ワードを使用していたが、2月以降「落とし穴」「上手くいかない人は」の問題提起型／詰問型に変質。
+        </div>
+      </div>
+
+      <div class="verdict-row">
+        <div class="num">03</div>
+        <div>
+          <div class="title">新規テーマ投入</div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-4); margin-top: 4px;">PRIORITY: HIGH</div>
+        </div>
+        <div class="v-cell h">
+          <div class="who">HARUTO</div>
+          AI人生相談・ADHD男・服役男・Google Opal・Manus AI・シニア無双など、4ヶ月で10本前後の新テーマ。
+        </div>
+        <div class="v-cell t">
+          <div class="who">TSUBASA</div>
+          同期間で新テーマ2本（ラジオ配信・シニアnote）のみ。残りは楽天ROOM・Canva・LINEスタンプの焼き直し。
+        </div>
+      </div>
+
+      <div class="verdict-row">
+        <div class="num">04</div>
+        <div>
+          <div class="title">キャラ物語の主役化</div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-4); margin-top: 4px;">PRIORITY: MEDIUM</div>
+        </div>
+        <div class="v-cell h">
+          <div class="who">HARUTO</div>
+          ADHD男・服役男・借金男・40代独身・シングルマザー・60代女性・67歳など、主役の属性を強烈に立てる。
+        </div>
+        <div class="v-cell t">
+          <div class="who">TSUBASA</div>
+          論理的解説型に終始し、主役の人物像が立たない。視聴者が「誰の話か」を見つけにくい。
+        </div>
+      </div>
+    </div>
+
+    <div class="notes" style="margin-top: 24px;">
+      <div class="label">STRATEGIC READING</div>
+      ツバサの問題は「動画が下手になった」ではなく、<strong>はるとが2026年型のYouTube運用構造（2チャンネル並走・テンプレ化されたタイトル・新規テーマの絶え間ない投入・キャラ物語の徹底）にアップデートし、ツバサがそこに追従できなかった</strong>こと。各要素は個別の改善ではなく<strong>運用構造そのものの再設計</strong>を必要とする。
+    </div>
+  </div>
+</section>
+
+<!-- 08 WHAT TSUBASA NEEDS -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num"><strong>08</strong> ／ IMPLICATIONS</span>
+      <h2>ツバサが取るべき方向性</h2>
+    </div>
+
+    <p style="font-size: 13px; color: var(--ink-2); margin-bottom: 16px;">
+      別途出した「LINE登録減少 構造分析」レポート（v3）と統合すると、優先順位は以下になる。
+    </p>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>順位</th><th>領域</th><th>はるとから学ぶこと</th><th>具体実行</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="pill" style="background: var(--accent); color: white;">P0</span></td>
+            <td><strong>タイトル4要素の即時復元</strong></td>
+            <td>結論完結ワード（完全版／金字塔／本邦初公開）の復活＋実績数字先出し</td>
+            <td>次の1本から実装。テンプレ：「【副業 → 月○○万】<strong>○○万益達成</strong>！<strong>○○の完全版</strong>！○○を<strong>本邦初公開</strong>」</td>
+          </tr>
+          <tr>
+            <td><span class="pill" style="background: var(--warn); color: white;">P1</span></td>
+            <td><strong>KAMIYAの設計思想を切り替え</strong></td>
+            <td>「メインの拡張機能」から「独立媒体」へ。同日2本投稿の停止＋テーマ独立化</td>
+            <td>同日2本セット投稿を即時停止。KAMIYAを「副業からビジネスへ」のチャンネル名通り、メインと違う領域（個人M&A・サブスク化・法人化・AIエージェント運用代行など）に振り切る</td>
+          </tr>
+          <tr>
+            <td><span class="pill" style="background: var(--warn); color: white;">P1</span></td>
+            <td><strong>キャラ物語の主役導入</strong></td>
+            <td>「ADHD男／服役男／シングルマザー」のような強烈な属性主役を毎本立てる</td>
+            <td>ペルソナ「カトウタカシ」相当の人物像をストーリー化（35歳・製造業・娘3歳・年収300万・副業失敗続き等）</td>
+          </tr>
+          <tr>
+            <td><span class="pill" style="background: var(--ink-3); color: white;">P2</span></td>
+            <td><strong>新規テーマの能動投入</strong></td>
+            <td>月1-2本ペースで未開拓テーマを投入する仕組み化</td>
+            <td>候補：AIエージェント（Manus AI／Claude Computer Use）・AIポッドキャスト・Google Opal・voice配信・AIアバター</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <strong>DATA SOURCES</strong>
+        <div>
+          Windsor.ai YouTube API<br>
+          Period: 2025.10 - 2026.04<br>
+          Accounts: 4 channels<br>
+          ・副業ハンターの神谷さん<br>
+          ・KAMIYA / 副業からビジネスへ<br>
+          ・三日坊主男子『はると』<br>
+          ・Haruto | AI自動化副業ラボ
+        </div>
+      </div>
+      <div class="foot-col">
+        <strong>DEFINITIONS</strong>
+        <div>
+          ヒット動画 ＝ views 5,000以上<br>
+          ヒット率 ＝ 月内ヒット数 ／ 月内投稿数<br>
+          総views ＝ 当月公開動画の<br>　集計時点での累計views<br>
+          ※ 動画ごとの集計期間差は<br>　考慮していない
+        </div>
+      </div>
+      <div class="foot-col">
+        <strong>RELATED REPORT</strong>
+        <div>
+          tsubasa_decline_report_v3.html<br>
+          （LINE登録減少の構造分析）<br><br>
+          本レポートは v3 の上位構造分析として<br>
+          位置付けられる。
+        </div>
+      </div>
+    </div>
+    <div class="foot-bot">
+      REPORT 2026.05.11 ／ COMPARATIVE ANALYSIS ／ ANALYZED BY ツバサアドバイザー
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
